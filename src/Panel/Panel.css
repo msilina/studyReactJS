@@ -2,3 +2,17 @@
     color: #282c34;
     margin: 20px;
 }
+
+.panel {
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #cccccc;
+    width: 400px;
+    height: 200px;
+    color: #282c34;
+    padding: 1rem;
+}
+
+.panel-list {
+    display: left;
+    padding-top: 1rem;
+}
