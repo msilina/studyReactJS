@@ -1,13 +1,33 @@
-.panel {
+.panel-default {
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #cccccc;
     width: 400px;
     height: 200px;
     color: #282c34;
     padding: 1rem;
+    background-color: #ffffff;
+}
+
+.panel-checked {
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #cccccc;
+    width: 400px;
+    height: 200px;
+    color: #282c34;
+    padding: 1rem;
+    background-color: rgb(212, 174, 187)
 }
 
 .panel-list {
     display: left;
-    padding-top: 1rem;
+    padding: 2rem;
+}
+
+.panel-header {
+    width:100%;
+    border-spacing: 0;
+}
+
+.align-right {
+    text-align: right;
 }
