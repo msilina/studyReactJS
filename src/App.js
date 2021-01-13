@@ -9,10 +9,7 @@ class App extends Component {
                 <Header 
                     headerText="Щикарный заголовок"> (очень информативный)
                 </Header>
-                <Panel 
-                    caption
-                    text
-                />
+                <Panel/>
             </div>
         );
     }

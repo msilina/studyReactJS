@@ -6,6 +6,15 @@ import classNames from 'classnames/bind';
 import './Panel.css';
 
 class Panel extends Component {
+    constructor(props) {
+        super(props);
+        this.textRef = React.createRef();
+        this.captionRef = React.createRef();
+        this.changeColorHandler = this.changeColorHandler.bind(this);
+        this.editPanelHandler = this.editPanelHandler.bind(this);
+        this.savePanelHandler = this.savePanelHandler.bind(this);
+        this.cancelPanelHandler = this.cancelPanelHandler.bind(this);
+    }
 
     state = {
         checked: false,
@@ -14,22 +23,22 @@ class Panel extends Component {
         caption: 'Чтототам'
     }
 
-    changeColorHandler = () => {
+    changeColorHandler() {
         this.setState({
             checked: !this.state.checked
         })
     }
 
-    editPanelHandler = () => {
+    editPanelHandler() {
         this.setState({
             editing: true,
             checked: false,
         })
     }
 
-    savePanelHandler = () => {
-        var newText = this.refs.text.value;
-        var newCaption = this.refs.caption.value;
+    savePanelHandler() {
+        var newText = this.textRef.current.value;
+        var newCaption = this.captionRef.current.value;
         this.setState({
             text: newText,
             caption: newCaption,
@@ -37,7 +46,7 @@ class Panel extends Component {
         })
     }
 
-    cancelPanelHandler = () => {
+    cancelPanelHandler() {
         this.setState({
             editing: false
         })
@@ -68,7 +77,7 @@ class Panel extends Component {
                         </td>
                         <td className="align-right">
                             { this.renderEditButton() }  
-                            <input  onClick={ this.changeColorHandler } type="checkbox" id="check"/>                                         
+                            <input  onClick={ this.changeColorHandler } type="checkbox" className="check"/>                                         
                         </td>
                     </tr>
                 </tbody>
@@ -86,7 +95,7 @@ class Panel extends Component {
                 <tbody>
                     <tr>
                         <td>
-                            <input ref="caption" defaultValue={ this.state.caption } className="caption"/>
+                            <input ref={ this.captionRef } defaultValue={ this.state.caption } className="caption"/>
                         </td>
                         <td className="align-right">
                             { this.renderSaveButtons() }
@@ -95,7 +104,7 @@ class Panel extends Component {
                 </tbody>
             </table>
             <hr/>
-            <textarea ref='text' defaultValue={ this.state.text } className="text" maxLength='250'></textarea>
+            <textarea ref={ this.textRef } defaultValue={ this.state.text } className="text" maxLength='250'></textarea>
         </div>
     );
 
