@@ -1,8 +1,6 @@
 .panel-default {
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #cccccc;
-    width: 400px;
-    height: 200px;
     color: #282c34;
     padding: 1rem;
     background-color: #ffffff;
@@ -11,16 +9,14 @@
 .panel-checked {
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #cccccc;
-    width: 400px;
-    height: 200px;
     color: #282c34;
     padding: 1rem;
     background-color: rgb(212, 174, 187)
 }
 
 .panel-list {
-    display: left;
-    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .panel-header {
@@ -30,6 +26,8 @@
 
 .align-right {
     text-align: right;
+    width: 30px;
+    padding: 0px; 
 }
 
 .check {
@@ -57,12 +55,14 @@
     width: 320px;
     overflow: hidden;
     text-overflow:ellipsis;
-    padding-top: 2px;
+    padding-top: 3px;
     padding-left: 4px;
+    padding-bottom: 3px;
 }
 
 .hide-long-text {
     word-wrap:break-word;
-    padding-top: 4.8px;
+    padding-top: 3px;
     padding-left: 3px;
+    margin-bottom: 6px;
 }

@@ -8,19 +8,21 @@ import './Panel.css';
 class Panel extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            checked: false,
+            editing: false,
+            //можно ли вообще так делать?
+            text: this.props.text,
+            caption: this.props.caption
+        }
+
         this.textRef = React.createRef();
         this.captionRef = React.createRef();
         this.changeColorHandler = this.changeColorHandler.bind(this);
         this.editPanelHandler = this.editPanelHandler.bind(this);
         this.savePanelHandler = this.savePanelHandler.bind(this);
         this.cancelPanelHandler = this.cancelPanelHandler.bind(this);
-    }
-
-    state = {
-        checked: false,
-        editing: false,
-        text: 'Какая-то важная ерунда про что-то там',
-        caption: 'Чтототам'
     }
 
     changeColorHandler() {
@@ -52,34 +54,47 @@ class Panel extends Component {
         })
     }
 
-    renderSaveButtons = () => (
-        <span>
-            <FiSave size={32} onClick={ this.savePanelHandler }/>
-            <IoArrowBackCircleOutline size={32} onClick={ this.cancelPanelHandler }/>
-        </span>
+    componentDidUpdate(prevProps) {
+        if (this.props.isDisableMode !== prevProps.isDisableMode && this.props.isDisableMode) {
+            this.setState({
+                editing: false
+            });
+        }
+    }
+
+    renderSaveButton = () => (
+        <FiSave size={32} onClick={ this.savePanelHandler }/>
+    );
+
+    renderCancelButton = () => (
+        <IoArrowBackCircleOutline size={32} onClick={ this.cancelPanelHandler }/>
     );
 
     renderEditButton = () => (
-        <span>
-            <FiEdit size={32} onClick={ this.editPanelHandler }/>
-        </span>
+        <FiEdit size={32} onClick={ this.editPanelHandler }/>
     );
 
     renderDefaultContent = () => (
         <div>
             <table className="panel-header">
                 <tbody>
-                    <tr>
-                        <td>
-                            <div className="hide-long-caption caption">
-                                { this.state.caption }
-                            </div>
-                        </td>
-                        <td className="align-right">
-                            { this.renderEditButton() }  
-                            <input  onClick={ this.changeColorHandler } type="checkbox" className="check"/>                                         
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <div className="hide-long-caption caption">
+                            { this.state.caption }
+                        </div>
+                    </td>
+                    {
+                        !this.props.isDisableMode ? (
+                            <td className="align-right">
+                                { this.renderEditButton() }
+                            </td>
+                        ) : null
+                    }
+                    <td className="align-right"> 
+                        <input onClick={ this.changeColorHandler } type="checkbox" className="form-check-input position-static check"/>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <hr/>
@@ -89,7 +104,7 @@ class Panel extends Component {
         </div>
     );
 
-    renderEditContent = () => (
+    renderEditedContent = () => (
         <div>
             <table className="panel-header">
                 <tbody>
@@ -97,9 +112,21 @@ class Panel extends Component {
                         <td>
                             <input ref={ this.captionRef } defaultValue={ this.state.caption } className="caption"/>
                         </td>
-                        <td className="align-right">
-                            { this.renderSaveButtons() }
-                        </td>
+                        {
+                            !this.props.isDisableMode ? (
+                                <td className="align-right">
+                                    { this.renderSaveButton() }
+                                </td>
+                            ) : null
+                        }
+                        {
+                            !this.props.isDisableMode ? (
+                                <td className="align-right">
+                                    { this.renderCancelButton() }
+                                </td>
+                            ) : null
+                        }
+
                     </tr>
                 </tbody>
             </table>
@@ -109,7 +136,7 @@ class Panel extends Component {
     );
 
     renderContent = () =>
-        this.state.editing ? this.renderEditContent() : this.renderDefaultContent();
+        this.state.editing ? this.renderEditedContent() : this.renderDefaultContent();
 
     render() {
         return (
@@ -117,7 +144,7 @@ class Panel extends Component {
                 <div className={ classNames({'panel-checked': this.state.checked}, {'panel-default': !this.state.checked}) }>
                     { this.renderContent() }
                 </div>
-            </div>
+             </div>
         );
     }
 }
