@@ -9,12 +9,13 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.disableEditingHandler = this.disableEditingHandler.bind(this);
-    }
 
-    state = {
-        panels: data.panels,
-        isDisableMode: false
+        this.state = {
+            panels: data.panels,
+            isDisableMode: false
+        };
+
+        this.disableEditingHandler = this.disableEditingHandler.bind(this);
     }
     
     disableEditingHandler() {
