@@ -24,25 +24,25 @@ class App extends Component {
         })
     }
 
-    renderPanels = () => (
-      <div className="container">
-          <div className="row">
-                {this.state.panels.map(panel => {
-                    return (
-                        <div className="col-sm-12 col-lg-6"> 
-                            <Panel
-                            //я добавила уникальное поле, чтобы использовать его в кач-ве key, но, почему-то, все равно вижу warning в консоли
-                                key={ panel.id }
-                                caption={ panel.caption }
-                                text={ panel.text }
-                                isDisableMode={ this.state.isDisableMode }
-                                />
-                        </div>);
-                    })
-                }
-          </div>
-      </div>
-    );
+    renderPanels() {
+        return  (
+            <div className="container">
+                <div className="row">
+                    {this.state.panels.map(panel => {
+                        return (
+                            <div className="col-sm-12 col-lg-6" key={ panel.id }> 
+                                <Panel
+                                    caption={ panel.caption }
+                                    text={ panel.text }
+                                    isDisableMode={ this.state.isDisableMode }
+                                    />
+                            </div>);
+                        })
+                    }
+                </div>
+            </div>
+        );
+    }
 
     render() {
         return (

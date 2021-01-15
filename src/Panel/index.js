@@ -13,8 +13,8 @@ class Panel extends Component {
             checked: false,
             editing: false,
             //можно ли вообще так делать?
-            text: this.props.text,
-            caption: this.props.caption
+            text: props.text,
+            caption: props.caption
         }
 
         this.textRef = React.createRef();
@@ -62,81 +62,85 @@ class Panel extends Component {
         }
     }
 
-    renderSaveButton = () => (
-        <FiSave size={32} onClick={ this.savePanelHandler }/>
-    );
+    renderSaveButton() {
+        return <FiSave size={32} onClick={ this.savePanelHandler }/>
+    }
 
-    renderCancelButton = () => (
-        <IoArrowBackCircleOutline size={32} onClick={ this.cancelPanelHandler }/>
-    );
+    renderCancelButton() {
+        return <IoArrowBackCircleOutline size={32} onClick={ this.cancelPanelHandler }/>
+    }
 
-    renderEditButton = () => (
-        <FiEdit size={32} onClick={ this.editPanelHandler }/>
-    );
+    renderEditButton() {
+        return <FiEdit size={32} onClick={ this.editPanelHandler }/>
+    }
 
-    renderDefaultContent = () => (
-        <div>
-            <table className="panel-header">
-                <tbody>
-                <tr>
-                    <td>
-                        <div className="hide-long-caption caption">
-                            { this.state.caption }
-                        </div>
-                    </td>
-                    {
-                        !this.props.isDisableMode ? (
-                            <td className="align-right">
-                                { this.renderEditButton() }
-                            </td>
-                        ) : null
-                    }
-                    <td className="align-right"> 
-                        <input onClick={ this.changeColorHandler } type="checkbox" className="form-check-input position-static check"/>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <hr/>
-            <div className="hide-long-text text"> 
-                { this.state.text }
-            </div>
-        </div>
-    );
-
-    renderEditedContent = () => (
-        <div>
-            <table className="panel-header">
-                <tbody>
+    renderDefaultContent() {
+        return (
+            <div>
+                <table className="panel-header">
+                    <tbody>
                     <tr>
                         <td>
-                            <input ref={ this.captionRef } defaultValue={ this.state.caption } className="caption"/>
+                            <div className="hide-long-caption caption">
+                                { this.state.caption }
+                            </div>
                         </td>
                         {
                             !this.props.isDisableMode ? (
                                 <td className="align-right">
-                                    { this.renderSaveButton() }
+                                    { this.renderEditButton() }
                                 </td>
                             ) : null
                         }
-                        {
-                            !this.props.isDisableMode ? (
-                                <td className="align-right">
-                                    { this.renderCancelButton() }
-                                </td>
-                            ) : null
-                        }
-
+                        <td className="align-right"> 
+                            <input onClick={ this.changeColorHandler } type="checkbox" className="form-check-input position-static check"/>
+                        </td>
                     </tr>
-                </tbody>
-            </table>
-            <hr/>
-            <textarea ref={ this.textRef } defaultValue={ this.state.text } className="text" maxLength='250'></textarea>
-        </div>
-    );
+                    </tbody>
+                </table>
+                <hr/>
+                <div className="hide-long-text text"> 
+                    { this.state.text }
+                </div>
+            </div>
+        );
+    }
 
-    renderContent = () =>
-        this.state.editing ? this.renderEditedContent() : this.renderDefaultContent();
+    renderEditedContent() {
+        return (
+            <div>
+                <table className="panel-header">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input ref={ this.captionRef } defaultValue={ this.state.caption } className="caption"/>
+                            </td>
+                            {
+                                !this.props.isDisableMode ? (
+                                    <td className="align-right">
+                                        { this.renderSaveButton() }
+                                    </td>
+                                ) : null
+                            }
+                            {
+                                !this.props.isDisableMode ? (
+                                    <td className="align-right">
+                                        { this.renderCancelButton() }
+                                    </td>
+                                ) : null
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+                <hr/>
+                <textarea ref={ this.textRef } defaultValue={ this.state.text } className="text" maxLength='250'></textarea>
+            </div>
+        );
+    }
+
+    renderContent() {
+        return this.state.editing ? this.renderEditedContent() : this.renderDefaultContent();
+    }
 
     render() {
         return (
