@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 import Header from './Header';
 import Panel from './Panel';
 import * as data from './data';
@@ -26,21 +30,21 @@ class App extends Component {
 
     renderPanels() {
         return  (
-            <div className="container">
-                <div className="row">
+            <Container>
+                <Row>
                     {this.state.panels.map(panel => {
                         return (
-                            <div className="col-sm-12 col-lg-6" key={ panel.id }> 
+                            <Col sm={ 12 } lg={ 6 } key={ panel.id }> 
                                 <Panel
                                     caption={ panel.caption }
                                     text={ panel.text }
                                     isDisableMode={ this.state.isDisableMode }
                                     />
-                            </div>);
+                            </Col>);
                         })
                     }
-                </div>
-            </div>
+                </Row>
+            </Container>
         );
     }
 
