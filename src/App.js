@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import Header from './Header';
 import Panel from './Panel';
 import * as data from './data';
-
-import './App.css';
+import { CheckboxContainer, CheckboxLabel, CheckboxInput } from './StyledComponent';
 
 class App extends Component {
 
@@ -48,18 +47,25 @@ class App extends Component {
         );
     }
 
+    renderDisableEditingCheckbox() {
+        return (
+            <CheckboxContainer>
+                <CheckboxLabel isDisableMode={ this.state.isDisableMode }>
+                    <CheckboxInput onClick={ this.disableEditingHandler }/>
+                    <span>Disable editing</span>
+                </CheckboxLabel>
+            </CheckboxContainer>
+        );
+    }
+
     render() {
         return (
             <div>
-                
-                <div>
-                    <Header 
-                        headerText="Щикарный заголовок"> (очень информативный)
-                    </Header>
-                    <input onClick={ this.disableEditingHandler } type="checkbox" id="showMode" className="checkbox"/>
-                    <label htmlFor="showMode" className="checkbox-label">Disable editing</label>
-                    { this.renderPanels() }
-                </div>
+                <Header 
+                    headerText="Щикарный заголовок"> (очень информативный)
+                </Header>
+                { this.renderDisableEditingCheckbox() }
+                { this.renderPanels() }
             </div>
         );
     }
