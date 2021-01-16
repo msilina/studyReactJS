@@ -1,0 +1,12 @@
+.checkbox {
+    margin: 20px;
+    padding-bottom: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+.checkbox-label {
+    font-size: 30px;
+    color: #444c5a;
+    font-family: 'Segoe UI', sans-serif;
+}
