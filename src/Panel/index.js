@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { FiEdit, FiSave } from "react-icons/fi";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
 import classNames from 'classnames/bind';
+
+import PanelBody from './PanelBody';
+import PanelHeader from './PanelHeader';
 
 import './Panel.css';
 
@@ -10,31 +11,40 @@ class Panel extends Component {
         super(props);
 
         this.state = {
-            checked: false,
+            checked: props.checked,
             editing: false,
-            //можно ли вообще так делать?
             text: props.text,
             caption: props.caption
         }
 
         this.textRef = React.createRef();
         this.captionRef = React.createRef();
-        this.changeColorHandler = this.changeColorHandler.bind(this);
         this.editPanelHandler = this.editPanelHandler.bind(this);
         this.savePanelHandler = this.savePanelHandler.bind(this);
         this.cancelPanelHandler = this.cancelPanelHandler.bind(this);
+        this.setCheckedHandler = this.setCheckedHandler.bind(this);
     }
 
-    changeColorHandler() {
-        this.setState({
-            checked: !this.state.checked
-        })
+    componentDidUpdate(prevProps) {
+        if (this.props.isDisableMode !== prevProps.isDisableMode && this.props.isDisableMode) {
+            this.setState({
+                editing: false
+            });
+        }
+    }
+
+    getIndexById(checked, id) {
+        return checked.findIndex(ch => ch.id === id);
     }
 
     editPanelHandler() {
+        let checked = [...this.state.checked];
+        const index = this.getIndexById(checked, this.props.id)
+        checked[index].checked = false;
+
         this.setState({
             editing: true,
-            checked: false,
+            checked: checked 
         })
     }
 
@@ -50,103 +60,41 @@ class Panel extends Component {
 
     cancelPanelHandler() {
         this.setState({
-            editing: false
+            editing: false,
         })
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.isDisableMode !== prevProps.isDisableMode && this.props.isDisableMode) {
-            this.setState({
-                editing: false
-            });
-        }
-    }
-
-    renderSaveButton() {
-        return <FiSave size={32} onClick={ this.savePanelHandler }/>
-    }
-
-    renderCancelButton() {
-        return <IoArrowBackCircleOutline size={32} onClick={ this.cancelPanelHandler }/>
-    }
-
-    renderEditButton() {
-        return <FiEdit size={32} onClick={ this.editPanelHandler }/>
-    }
-
-    renderDefaultContent() {
-        return (
-            <div>
-                <table className="panel-header">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div className="hide-long-caption caption">
-                                { this.state.caption }
-                            </div>
-                        </td>
-                        {
-                            !this.props.isDisableMode ? (
-                                <td className="align-right">
-                                    { this.renderEditButton() }
-                                </td>
-                            ) : null
-                        }
-                        <td className="align-right"> 
-                            <input onClick={ this.changeColorHandler } type="checkbox" className="form-check-input position-static check"/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <hr/>
-                <div className="hide-long-text text"> 
-                    { this.state.text }
-                </div>
-            </div>
-        );
-    }
-
-    renderEditedContent() {
-        return (
-            <div>
-                <table className="panel-header">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input ref={ this.captionRef } defaultValue={ this.state.caption } className="caption"/>
-                            </td>
-                            {
-                                !this.props.isDisableMode ? (
-                                    <td className="align-right">
-                                        { this.renderSaveButton() }
-                                    </td>
-                                ) : null
-                            }
-                            {
-                                !this.props.isDisableMode ? (
-                                    <td className="align-right">
-                                        { this.renderCancelButton() }
-                                    </td>
-                                ) : null
-                            }
-                        </tr>
-                    </tbody>
-                </table>
-                <hr/>
-                <textarea ref={ this.textRef } defaultValue={ this.state.text } className="text" maxLength='250'></textarea>
-            </div>
-        );
-    }
-
-    renderContent() {
-        return this.state.editing ? this.renderEditedContent() : this.renderDefaultContent();
+    setCheckedHandler(id) {
+        let checked = [...this.state.checked];
+        const index = this.getIndexById(checked, this.props.id)
+        checked[index].checked = !checked[index].checked;
+        this.setState({ checked: checked });
     }
 
     render() {
+        let checked = [...this.state.checked];
+        const index = this.getIndexById(checked, this.props.id)
+        const ch = this.state.checked[index].checked;
+        debugger
         return (
             <div className="panel-list">
-                <div className={ classNames({'panel-checked': this.state.checked}, {'panel-default': !this.state.checked}) }>
-                    { this.renderContent() }
+                <div className={ classNames({'panel-checked': ch}, {'panel-default': !ch}) }>
+                    <PanelHeader
+                        editing={this.state.editing}
+                        isDisableMode={this.props.isDisableMode}
+                        caption={ this.state.caption }
+                        captionRef={ this.captionRef }
+                        edit={ () => this.editPanelHandler() }
+                        save={ () => this.savePanelHandler() }
+                        cancel={ () => this.cancelPanelHandler() }
+                        setChecked={ () => this.setCheckedHandler(this.props.id) }
+                    />
+                    <hr/>
+                    <PanelBody
+                        editing={this.state.editing}
+                        text={ this.state.text }
+                        textRef={ this.textRef }
+                    />
                 </div>
              </div>
         );
