@@ -13,17 +13,14 @@ class App extends Component {
         this.state = {
             panels: data.panels,
             isDisableMode: false,
-            checked: data.panels.map(
-                panel => ({
-                    id: panel.id,
-                    checked: false,
-                })
-            )
         };
 
         this.disableEditingHandler = this.disableEditingHandler.bind(this);
         this.removePanelHandler = this.removePanelHandler.bind(this);
+        this.checkedHandler = this.checkedHandler.bind(this);
     }
+
+    checkedToRemove = [];
     
     disableEditingHandler() {
         this.setState({
@@ -33,12 +30,16 @@ class App extends Component {
 
     removePanelHandler() {
         const panels = [...this.state.panels];
-        const checked = [...this.state.checked];
         this.setState({
-            panels: panels.filter(panel => this.state.checked.some(p => panel.id === p.id && !p.checked)),
-            checked: checked.filter(c => c.checked === false),
+            panels: panels.filter(panel => !this.checkedToRemove.includes(panel.id)),
         });
 
+    }
+
+    checkedHandler(id, checked) {
+        debugger
+        return checked ? this.checkedToRemove.push(id) :
+            this.checkedToRemove = this.checkedToRemove.filter(panelId => panelId !== id);
     }
 
     render() {
@@ -49,14 +50,14 @@ class App extends Component {
                 </Header>
                 <ActionsPanel
                     isDisableMode={ this.state.isDisableMode }
-                    clickDisable={() => this.disableEditingHandler() }
+                    clickDisable={ this.disableEditingHandler }
                     disabled={ isEmpty(this.state.panels) }
-                    clickRemove={ () => this.removePanelHandler() }
+                    clickRemove={ this.removePanelHandler }
                 />
                 <PanelList
                     panels={ this.state.panels }
                     isDisableMode={ this.state.isDisableMode}
-                    checked={ this.state.checked }
+                    onChecked={ this.checkedHandler }
                 />
             </div>
         );

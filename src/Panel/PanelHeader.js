@@ -43,7 +43,7 @@ const PanelHeader = (props) => (
                             ) : null
                         }
                         <td className="align-right"> 
-                            <input onClick={ props.setChecked } type="checkbox" className="form-check-input position-static check"/>
+                            <input onClick={ props.onChecked } type="checkbox" className="form-check-input position-static check"/>
                         </td>
                     </tr>
                 ) }

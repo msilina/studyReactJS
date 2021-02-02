@@ -11,7 +11,7 @@ class Panel extends Component {
         super(props);
 
         this.state = {
-            checked: props.checked,
+            checked: false,
             editing: false,
             text: props.text,
             caption: props.caption
@@ -22,29 +22,21 @@ class Panel extends Component {
         this.editPanelHandler = this.editPanelHandler.bind(this);
         this.savePanelHandler = this.savePanelHandler.bind(this);
         this.cancelPanelHandler = this.cancelPanelHandler.bind(this);
-        this.setCheckedHandler = this.setCheckedHandler.bind(this);
+        this.checkBoxHandler = this.checkBoxHandler.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.isDisableMode !== prevProps.isDisableMode && this.props.isDisableMode) {
+    static getDerivedStateFromProps(nextProps, props){
+        if (props.isDisableMode !== nextProps.isDisableMode && props.isDisableMode) {
             this.setState({
                 editing: false
             });
         }
     }
 
-    getIndexById(checked, id) {
-        return checked.findIndex(ch => ch.id === id);
-    }
-
     editPanelHandler() {
-        let checked = [...this.state.checked];
-        const index = this.getIndexById(checked, this.props.id)
-        checked[index].checked = false;
-
         this.setState({
             editing: true,
-            checked: checked 
+            checked: false
         })
     }
 
@@ -54,40 +46,38 @@ class Panel extends Component {
         this.setState({
             text: newText,
             caption: newCaption,
-            editing: false
+            editing: false,
+            checked: false
         })
     }
 
     cancelPanelHandler() {
         this.setState({
             editing: false,
+            checked: false
         })
     }
 
-    setCheckedHandler(id) {
-        let checked = [...this.state.checked];
-        const index = this.getIndexById(checked, this.props.id)
-        checked[index].checked = !checked[index].checked;
-        this.setState({ checked: checked });
-    }
+    checkBoxHandler () {
+        this.setState({
+            checked: !this.state.checked
+        });
+        this.props.onChecked(this.props.id, !this.state.checked);
+      };
 
     render() {
-        let checked = [...this.state.checked];
-        const index = this.getIndexById(checked, this.props.id)
-        const ch = this.state.checked[index].checked;
-        debugger
         return (
             <div className="panel-list">
-                <div className={ classNames({'panel-checked': ch}, {'panel-default': !ch}) }>
+                <div className={ classNames({'panel-checked': this.state.checked}, {'panel-default': !this.state.checked}) }>
                     <PanelHeader
-                        editing={this.state.editing}
-                        isDisableMode={this.props.isDisableMode}
+                        editing={ this.state.editing }
+                        isDisableMode={ this.props.isDisableMode }
                         caption={ this.state.caption }
                         captionRef={ this.captionRef }
-                        edit={ () => this.editPanelHandler() }
-                        save={ () => this.savePanelHandler() }
-                        cancel={ () => this.cancelPanelHandler() }
-                        setChecked={ () => this.setCheckedHandler(this.props.id) }
+                        edit={ this.editPanelHandler }
+                        save={ this.savePanelHandler }
+                        cancel={ this.cancelPanelHandler }
+                        onChecked={ this.checkBoxHandler}
                     />
                     <hr/>
                     <PanelBody

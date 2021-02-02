@@ -13,7 +13,7 @@ const PanelList = (props) => (
                         text={ panel.text }
                         id={ panel.id }
                         isDisableMode={ props.isDisableMode }
-                        checked={ props.checked }
+                        onChecked={ props.onChecked }
                     />
                 </Col>
             ))}
