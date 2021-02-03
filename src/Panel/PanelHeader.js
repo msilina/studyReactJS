@@ -16,14 +16,14 @@ const PanelHeader = (props) => (
                         {
                             !props.isDisableMode ? (
                                 <td className="align-right">
-                                    <FiSave size={32} onClick={ props.save }/>
+                                    <FiSave size={32} onClick={ props.onSave }/>
                                 </td>
                             ) : null
                         }
                         {
                             !props.isDisableMode ? (
                                 <td className="align-right">
-                                    <IoArrowBackCircleOutline size={32} onClick={ props.cancel }/>
+                                    <IoArrowBackCircleOutline size={32} onClick={ props.onCancel }/>
                                 </td>
                             ) : null
                         }
@@ -38,7 +38,7 @@ const PanelHeader = (props) => (
                         {
                             !props.isDisableMode ? (
                                 <td className="align-right">
-                                    <FiEdit size={32} onClick={ props.edit }/>
+                                    <FiEdit size={32} onClick={ props.onEdit }/>
                                 </td>
                             ) : null
                         }

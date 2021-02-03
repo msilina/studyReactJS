@@ -25,12 +25,13 @@ class Panel extends Component {
         this.checkBoxHandler = this.checkBoxHandler.bind(this);
     }
 
-    static getDerivedStateFromProps(nextProps, props){
-        if (props.isDisableMode !== nextProps.isDisableMode && props.isDisableMode) {
-            this.setState({
+    static getDerivedStateFromProps(nextProps, props) {
+        if (props.isDisableMode !== nextProps.isDisableMode && nextProps.isDisableMode) {
+            return {
                 editing: false
-            });
+            };
         }
+        return null;
     }
 
     editPanelHandler() {
@@ -74,9 +75,9 @@ class Panel extends Component {
                         isDisableMode={ this.props.isDisableMode }
                         caption={ this.state.caption }
                         captionRef={ this.captionRef }
-                        edit={ this.editPanelHandler }
-                        save={ this.savePanelHandler }
-                        cancel={ this.cancelPanelHandler }
+                        onEdit={ this.editPanelHandler }
+                        onSave={ this.savePanelHandler }
+                        onCancel={ this.cancelPanelHandler }
                         onChecked={ this.checkBoxHandler}
                     />
                     <hr/>

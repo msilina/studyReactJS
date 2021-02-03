@@ -37,7 +37,6 @@ class App extends Component {
     }
 
     checkedHandler(id, checked) {
-        debugger
         return checked ? this.checkedToRemove.push(id) :
             this.checkedToRemove = this.checkedToRemove.filter(panelId => panelId !== id);
     }
