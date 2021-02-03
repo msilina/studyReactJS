@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { isEmpty } from 'lodash';
 
 import Header from './Header';
-import Panel from './Panel';
+import PanelList from './Panels/PanelList';
+import ActionsPanel from './ActionsPanel';
 import * as data from './data';
-import { CheckboxContainer, CheckboxLabel, CheckboxInput } from './StyledComponent';
 
 class App extends Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
             panels: data.panels,
-            isDisableMode: false
+            isDisableMode: false,
         };
 
         this.disableEditingHandler = this.disableEditingHandler.bind(this);
+        this.removePanelHandler = this.removePanelHandler.bind(this);
+        this.checkedHandler = this.checkedHandler.bind(this);
     }
+
+    checkedToRemove = [];
     
     disableEditingHandler() {
         this.setState({
@@ -27,35 +28,17 @@ class App extends Component {
         })
     }
 
-    renderPanels() {
-        return  (
-            <Container>
-                <Row>
-                    {this.state.panels.map(panel => {
-                        return (
-                            <Col sm={ 12 } lg={ 6 } key={ panel.id }> 
-                                <Panel
-                                    caption={ panel.caption }
-                                    text={ panel.text }
-                                    isDisableMode={ this.state.isDisableMode }
-                                    />
-                            </Col>);
-                        })
-                    }
-                </Row>
-            </Container>
-        );
+    removePanelHandler() {
+        const panels = [...this.state.panels];
+        this.setState({
+            panels: panels.filter(panel => !this.checkedToRemove.includes(panel.id)),
+        });
+
     }
 
-    renderDisableEditingCheckbox() {
-        return (
-            <CheckboxContainer>
-                <CheckboxLabel isDisableMode={ this.state.isDisableMode }>
-                    <CheckboxInput onClick={ this.disableEditingHandler }/>
-                    <span>Disable editing</span>
-                </CheckboxLabel>
-            </CheckboxContainer>
-        );
+    checkedHandler(id, checked) {
+        return checked ? this.checkedToRemove.push(id) :
+            this.checkedToRemove = this.checkedToRemove.filter(panelId => panelId !== id);
     }
 
     render() {
@@ -64,8 +47,17 @@ class App extends Component {
                 <Header 
                     headerText="Щикарный заголовок"> (очень информативный)
                 </Header>
-                { this.renderDisableEditingCheckbox() }
-                { this.renderPanels() }
+                <ActionsPanel
+                    isDisableMode={ this.state.isDisableMode }
+                    clickDisable={ this.disableEditingHandler }
+                    disabled={ isEmpty(this.state.panels) }
+                    clickRemove={ this.removePanelHandler }
+                />
+                <PanelList
+                    panels={ this.state.panels }
+                    isDisableMode={ this.state.isDisableMode}
+                    onChecked={ this.checkedHandler }
+                />
             </div>
         );
     }

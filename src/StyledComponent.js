@@ -3,22 +3,29 @@ import styled, { css } from 'styled-components';
 export const CheckboxInput = styled.input.attrs({type: 'checkbox'})`
     margin: 20px;
     padding-bottom: 10px;
-    width: 25px;
-    height: 25px;
+    width: 17px;
+    height: 17px;
 `;
 
-export const CheckboxContainer = styled.div`
+export const Container = styled.div`
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #cccccc;
     padding: 1rem;
-    background-color: #ffffff;
+    background-color: #f2f2f2;
     margin: 20px;
 `;
 
+export const CheckboxContainer=styled.div`
+    border: 1px solid #eee;
+    padding: 1rem;
+    background-color: #ffffff;
+    margin-top: 20px;
+`;
+
 export const CheckboxLabel = styled.label`
-    font-size: 30px;
+    font-size: 22px;
     font-family: 'Segoe UI', sans-serif;
-    color: #282c34;
+    color: #5a6268;
 
     
     ${props => props.isDisableMode && css`
