@@ -1,11 +1,16 @@
 import React from 'react';
 
 import { Button } from 'react-bootstrap';
-import { Container, CheckboxLabel, CheckboxInput, CheckboxContainer } from '../StyledComponent';
+import { Container, Row, Col } from 'react-bootstrap';
+import { ButtonsContainer, CheckboxLabel, CheckboxInput, CheckboxContainer } from '../StyledComponent';
 
 const ActionsPanel = (props) => (
-    <Container>
-        <Button variant="secondary" size="lg" block
+    <ButtonsContainer>
+        <Button variant="secondary" block
+            onClick={ props.clickAddPanel }>
+            Add new panel
+        </Button>
+        <Button variant="secondary" block
             disabled={ props.disabled }
             onClick={ props.clickRemove }>
             Remove selected panels
@@ -16,7 +21,7 @@ const ActionsPanel = (props) => (
                 <span>Disable editing</span>
             </CheckboxLabel>
         </CheckboxContainer>
-    </Container>
+    </ButtonsContainer>
 )
 
 export default ActionsPanel;

@@ -7,7 +7,7 @@ export const CheckboxInput = styled.input.attrs({type: 'checkbox'})`
     height: 17px;
 `;
 
-export const Container = styled.div`
+export const ButtonsContainer = styled.div`
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #cccccc;
     padding: 1rem;
