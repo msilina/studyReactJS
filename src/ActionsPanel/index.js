@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Button } from 'react-bootstrap';
-import { Container, Row, Col } from 'react-bootstrap';
 import { ButtonsContainer, CheckboxLabel, CheckboxInput, CheckboxContainer } from '../StyledComponent';
 
 const ActionsPanel = (props) => (

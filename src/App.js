@@ -44,12 +44,11 @@ class App extends Component {
     }
 
     addPanelHandler() {
-        let panels = [...this.state.panels];
-        panels.push({
+        let panels = [...this.state.panels, {
             id: uuidv4(),
             caption: 'Default caption',
             text: 'Default text'
-        });
+        }];
         this.setState({
             panels: panels
         });
