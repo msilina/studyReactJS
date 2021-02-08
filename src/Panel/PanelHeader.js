@@ -1,6 +1,7 @@
 import React from 'react';
 import { FiEdit, FiSave } from "react-icons/fi";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import withLoadingDelay from '../hoc/withLoadingDelay';
 
 import './Panel.css';
 
@@ -51,4 +52,6 @@ const PanelHeader = (props) => (
     </table>
 );
 
-export default PanelHeader;
+const height = 43;
+
+export default withLoadingDelay(PanelHeader, height);
