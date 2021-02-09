@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { PanelContextProvider } from './context/PanelContext'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <PanelContextProvider>
     <App />
-  </React.StrictMode>,
+  </PanelContextProvider>,
   document.getElementById('root')
 );
 
