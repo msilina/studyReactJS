@@ -1,4 +1,5 @@
 import React from 'react';
+import withLoadingDelay from '../hoc/withLoadingDelay';
 
 import './Panel.css';
 
@@ -11,4 +12,6 @@ const PanelBody = (props) => (
         )
 );
 
-export default PanelBody;
+const height = 137;
+
+export default withLoadingDelay(PanelBody, height);
