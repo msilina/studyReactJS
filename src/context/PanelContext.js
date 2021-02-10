@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { isEmpty } from 'lodash';
-
-import * as data from '../data';
+import { isEmpty, isUndefined } from 'lodash';
+import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 
 const { Provider, Consumer } = React.createContext();
 
@@ -11,8 +11,9 @@ class PanelContextProvider extends Component {
         super(props);
 
         this.state = {
-            panels: data.panels,
+            panels: [],
             isDisableMode: false,
+            error: []
         };
         this.bottom = React.createRef();
 
@@ -24,6 +25,23 @@ class PanelContextProvider extends Component {
     }
 
     checkedToRemove = [];
+
+    componentDidMount() {
+        axios.get('https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json')
+            .then(response => {
+                this.setState({
+                    panels: response.data.slice(0, 15).map(panel => ({
+                        id: uuidv4(),
+                        caption: panel.Name,
+                        text: panel.About,
+                    }))
+                });
+            }).catch(error => {
+                this.setState({
+                    error: error.response
+                })
+            });
+    }
     
     disableEditingHandler() {
         this.setState({
@@ -73,7 +91,8 @@ class PanelContextProvider extends Component {
                 disabled: isEmpty(this.state.panels),
                 clickRemove: this.removePanelHandler,
                 clickAddPanel: this.addPanelHandler,
-                panelsLength: this.state.panels.length
+                panelsLength: this.state.panels.length,
+                error: this.state.error
             }}>
             { this.props.children }
         </Provider>
