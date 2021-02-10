@@ -1,11 +1,10 @@
 import React from 'react';
 import './Footer.css';
-import footer from '../images/footer.png'; 
+import footer from '../images/footer.png';
 
-const Footer = (props) => {
+const Footer = () => {
     return (
         <div className="footer">
-            <div ref={ props.footerRef }/>
             <table className="footer-table">
                 <tbody>
                     <tr>

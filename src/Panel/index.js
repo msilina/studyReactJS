@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 import PanelBody from './PanelBody';
 import PanelHeader from './PanelHeader';
@@ -91,5 +92,17 @@ class Panel extends Component {
         );
     }
 }
+
+Panel.propTypes = {
+    editing: PropTypes.bool,
+    isDisableMode: PropTypes.bool,
+    caption: PropTypes.string,
+    text: PropTypes.string,
+    checked: PropTypes.bool,
+    editPanelHandler: PropTypes.func,
+    savePanelHandler: PropTypes.func,
+    cancelPanelHandler: PropTypes.func,
+    checkBoxHandler: PropTypes.func
+};
 
 export default Panel;
