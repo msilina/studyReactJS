@@ -1,5 +1,5 @@
 import React from 'react';
-import withLoadingDelay from '../hoc/withLoadingDelay';
+import withLoadingDelay from '../../hoc/withLoadingDelay';
 
 import './Panel.css';
 

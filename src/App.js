@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import Header from './Header';
-import Footer from './Footer';
-import PanelList from './Panels/PanelList';
-import ActionsPanel from './ActionsPanel';
+import LayoutComponent from './components/LayoutComponent';
+import Routes from './routes/Routes';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <Header 
-                    headerText="Щикарный заголовок"> (очень информативный)
-                </Header>
-                <ActionsPanel />
-                <PanelList />
-                <Footer/>
-            </div>
+            <BrowserRouter>
+                <LayoutComponent>
+                    <Routes />
+                </LayoutComponent>
+            </BrowserRouter>
         );
     }
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { ButtonsContainer, CheckboxLabel, CheckboxInput, CheckboxContainer } from '../StyledComponent';
 
-import { Consumer } from '../context/PanelContext';
+import { Consumer } from '../../context/PanelContext';
 
 const ActionsPanel = () => (
     <Consumer>
