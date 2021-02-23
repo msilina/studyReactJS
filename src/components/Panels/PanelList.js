@@ -3,7 +3,7 @@ import { Container, Row, Col, Alert } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 
 import Panel from '../Panel';
-import { Consumer } from '../context/PanelContext';
+import { Consumer } from '../../context/PanelContext';
 
 const PanelList = () => (
     <Consumer>

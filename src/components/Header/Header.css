@@ -1,0 +1,42 @@
+.header {
+    background-color: rgb(108,117,125);
+    color: white;
+    margin: 20px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+}
+
+.navigation-bar {
+    overflow: hidden;
+    background-color: rgb(89, 96, 102);
+}
+
+.navigation-bar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navigation-bar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.navigation-bar a.active {
+    background-color: rgb(192, 158, 170);
+    color: white;
+}
+
+.header-text {
+    text-align: center;
+}
+
+.count {
+    font-size: 17px;
+    margin-top: 14px;
+    text-align: right;
+    margin-right: 40px;
+}

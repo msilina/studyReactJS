@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiEdit, FiSave } from "react-icons/fi";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import withLoadingDelay from '../hoc/withLoadingDelay';
+import withLoadingDelay from '../../hoc/withLoadingDelay';
 
 import './Panel.css';
 
