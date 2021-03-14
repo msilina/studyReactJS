@@ -11,19 +11,16 @@
     background-color: white;
     width: 500px;
     height: 200px;
-    border-radius: 3px;
 }
 
-.input {
+.input_element {
     width: 100%;
     height: 70px;
     font-size: 20px;
     color: rgb(108,117,125);
     border: none;
     padding: 20px;
-    margin-top: 5px;
     filter: none;
-    border-bottom: 1px solid rgb(108,117,125);
     flex-direction: column;
     justify-content: flex-start;
     cursor: text;
