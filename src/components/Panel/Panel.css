@@ -62,9 +62,32 @@
     padding-bottom: 3px;
 }
 
+.show-caption {
+    padding-top: 2px;
+    padding-left: 3px;
+    padding-bottom: 3px;
+}
+
 .hide-long-text {
     word-wrap:break-word;
     padding-top: 3px;
     padding-left: 3px;
     margin-bottom: 6px;
+}
+
+.show-text {
+    padding-top: 2px;
+    padding-left: 3px;
+    margin-bottom: 4px;
+}
+
+.input {
+    border: 1px solid rgb(199, 199, 199);
+    background-color: #f4f4f4;
+}
+
+.button {
+    margin-left: 5px;
+    width: 100px;
+    background-color: rgb(212, 174, 187);
 }
