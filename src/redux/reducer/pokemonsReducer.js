@@ -9,8 +9,7 @@ const initialState = {
     error: undefined
 };
 
-const getPokemonsReducer = (state = initialState, action) => {
-    // debugger
+const pokemonsReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.GET_POKEMON_DATA_START:
             return {
@@ -54,4 +53,4 @@ const getPokemonsReducer = (state = initialState, action) => {
     }
 }
 
-export default getPokemonsReducer;
+export default pokemonsReducer;
