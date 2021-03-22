@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Field, Form } from 'react-final-form';
 import { isUndefined, isEmpty, isNull } from 'lodash';
-import { Redirect } from 'react-router-dom';
 
 import Input from '../../common/components/Input';
 import { required, email, minLength8, atLeastOneNumberAndCharacter} from '../../validation/validationRules';
@@ -68,7 +66,7 @@ class Login extends Component {
     handleSubmit(event) {
         event.preventDefault();
         if (this.validateForm(this.state.errors)) {
-            this.props.history.push('/')
+            this.props.history.push('/');
         }
     }
 

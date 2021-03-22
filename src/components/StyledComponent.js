@@ -7,12 +7,16 @@ export const CheckboxInput = styled.input.attrs({type: 'checkbox'})`
     height: 17px;
 `;
 
-export const ButtonsContainer = styled.div`
+export const DataContainer = styled.div`
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #cccccc;
     padding: 1rem;
     background-color: #f2f2f2;
     margin: 20px;
+`;
+
+export const CardContainer = styled.div`
+    height: 600px;
 `;
 
 export const CheckboxContainer=styled.div`

@@ -1,17 +1,20 @@
 import React from 'react';
-import withLoadingDelay from '../../hoc/withLoadingDelay';
+import { Skeleton } from '@material-ui/lab';
 
 import './Panel.css';
 
 const PanelBody = (props) => (
-    props.editing ? <textarea ref={ props.textRef } defaultValue={ props.text } className="text" maxLength='250'></textarea>
-        : (
-            <div className="hide-long-text text"> 
+    !props.loading
+        ? ( props.editing
+            ? <textarea ref={ props.textRef } defaultValue={ props.text } className="text" maxLength='250'></textarea>
+            : <div className="hide-long-text text"> 
                 { props.text }
             </div>
         )
+        : <Skeleton
+            animation="wave"
+            height={137}
+        />
 );
 
-const height = 137;
-
-export default withLoadingDelay(PanelBody, height);
+export default PanelBody;
