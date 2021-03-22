@@ -11,9 +11,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import rootReducer from './redux/reducer/index.js';
 
+const logger = store => {
+    return next => {
+        return action => {
+            console.log(`Payload for ${action.type}: `, action.payload);
+            const result = next(action);
+            return result;
+        }
+    }
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, logger)));
 
 ReactDOM.render(
     <Provider store={store}>
