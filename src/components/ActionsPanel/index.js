@@ -13,12 +13,6 @@ const ActionsPanel = (props) => (
             onClick={ props.onRemove }>
             Remove selected panels
         </Button>
-        <CheckboxContainer>
-            <CheckboxLabel isDisableMode={ props.isDisableMode }>
-                <CheckboxInput onClick={ props.clickDisable }/>
-                <span>Disable editing</span>
-            </CheckboxLabel>
-        </CheckboxContainer>
     </DataContainer>
 );
 

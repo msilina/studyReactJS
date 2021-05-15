@@ -69,25 +69,27 @@ class CardViewer extends Component {
 
     renderButtons() {
         return (
-            <div>
-                <Button
-                    variant="primary"
-                    className="button"
-                    onClick={ this.editHandler }
-                    disabled={ this.state.editing }
-                >
-                    Edit
-                </Button>
-                <Button
-                    variant="primary"
-                    className="button"
-                    onClick={ this.saveHandler }
-                    disabled={ !this.state.editing }
-                >
-                    Save
-                </Button>
-            </div>
-        )
+            !this.props.history.location.state.isDisableMode
+                ? (<div>
+                    <Button
+                        variant="primary"
+                        className="button"
+                        onClick={ this.editHandler }
+                        disabled={ this.state.editing }
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                        variant="primary"
+                        className="button"
+                        onClick={ this.saveHandler }
+                        disabled={ !this.state.editing }
+                    >
+                        Save
+                    </Button>
+                </div>)
+                : null
+        );
     }
 
     rendeFields() {
@@ -127,7 +129,6 @@ class CardViewer extends Component {
         )
     }
 }
-
 
 const mapStateToProps = state => {
     return {

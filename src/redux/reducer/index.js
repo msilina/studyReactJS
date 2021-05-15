@@ -1,10 +1,13 @@
 import pokemonsReducer from './pokemonsReducer';
+import settingsReducer from './settingsReducer';
+import loginSlice from './loginSlice';
+
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
     pokemons: pokemonsReducer,
-    form: formReducer
+    settings: settingsReducer,
+    auth: loginSlice
 });
 
 export default rootReducer;
