@@ -16,7 +16,7 @@ export const DataContainer = styled.div`
 `;
 
 export const CardContainer = styled.div`
-    height: 600px;
+    height: 550px;
 `;
 
 export const CheckboxContainer=styled.div`

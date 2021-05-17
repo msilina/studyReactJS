@@ -77,12 +77,10 @@ class Panel extends Component {
     };
 
     openCardHandler() {
-        if (!this.props.isDisableMode) {
-            this.props.history.push({
-                pathname: `card/:${this.state.id}`,
-                state: {text: this.state.text, caption: this.state.caption, id: this.state.id}
-            });
-        }
+        this.props.history.push({
+            pathname: `card/:${this.state.id}`,
+            state: {text: this.state.text, caption: this.state.caption, id: this.state.id, isDisableMode: this.props.isDisableMode}
+        });
     }
 
     render() {

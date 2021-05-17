@@ -6,3 +6,5 @@ export const GET_POKEMON_DATA_FAIL = 'GET_POKEMON_DATA_FAIL';
 export const ADD_POKEMON = 'ADD_POKEMON';
 export const REMOVE_POKEMON = 'REMOVE_POKEMON';
 export const EDIT_POKEMON = 'EDIT_POKEMON';
+
+export const SET_EDITING = 'SET_EDITING';

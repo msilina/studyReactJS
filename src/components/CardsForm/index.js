@@ -10,11 +10,6 @@ class CardsForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isDisableMode: false,
-        };
-
-        this.disableEditingHandler = this.disableEditingHandler.bind(this);
         this.removePokemonHandler = this.removePokemonHandler.bind(this);
         this.checkedHandler = this.checkedHandler.bind(this);
         this.addPokemonHandler = this.addPokemonHandler.bind(this);
@@ -44,12 +39,6 @@ class CardsForm extends Component {
         this.props.removePokemon(this.checkedToRemove);
     }
 
-    disableEditingHandler() {
-        this.setState({
-            isDisableMode: !this.state.isDisableMode
-        })
-    }
-
     checkedHandler(id, checked) {
         return checked ? this.checkedToRemove.push(id) :
             this.checkedToRemove = this.checkedToRemove.filter(panelId => panelId !== id);
@@ -58,14 +47,15 @@ class CardsForm extends Component {
     render() {
         return (
             <div>
-                <ActionsPanel
-                    isDisableMode={ this.state.isDisableMode }
-                    clickDisable={ this.disableEditingHandler }
-                    onAdd= { this.addPokemonHandler }
-                    onRemove={ this.removePokemonHandler }
-                />
+                { !this.props.editing
+                    ? <ActionsPanel
+                        onAdd= { this.addPokemonHandler }
+                        onRemove={ this.removePokemonHandler }
+                    />
+                    : null
+                }
                 <PanelList
-                    isDisableMode={ this.state.isDisableMode }
+                    isDisableMode={ this.props.editing }
                     onChecked={ this.checkedHandler }
                     panels={ this.props.panels }
                     error={ this.props.error }
@@ -80,7 +70,9 @@ const mapStateToProps = state => {
     return {
         panels: state.pokemons.panels,
         error: state.pokemons.error,
-        loading: state.pokemons.loading
+        loading: state.pokemons.loading,
+        editing: state.settings.editing,
+        username: state.auth.username
     }
 };
 

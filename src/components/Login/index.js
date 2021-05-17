@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { isUndefined, isEmpty, isNull } from 'lodash';
+import { useDispatch,useSelector } from "react-redux";
 
 import Input from '../../common/components/Input';
 import { required, email, minLength8, atLeastOneNumberAndCharacter} from '../../validation/validationRules';
+import { login, logout } from '../../redux/reducer/loginSlice';
+import { store } from '../../store';
 
 import './Login.css';
 import logo from '../../images/logo.png';
@@ -40,7 +44,7 @@ class Login extends Component {
         return valid;
     };
 
-    saveToLocalstorage = saveTo => event => {
+    saveToLocalstorage = event => {
         event.preventDefault();
         const { name, value } = event.target;
         let errors = this.state.errors;
@@ -59,23 +63,27 @@ class Login extends Component {
         }
     
         this.setState({errors, [name]: value});
-        sessionStorage.setItem(saveTo, event.target.value);
-        sessionStorage.setItem('errors', JSON.stringify(this.state.errors));
     }
 
     handleSubmit(event) {
+        const data = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
         event.preventDefault();
         if (this.validateForm(this.state.errors)) {
+            this.props.login(data);
             this.props.history.push('/');
         }
     }
 
     isUsernameFilled() {
-        return !isUndefined(this.state.username) || !isNull(sessionStorage.getItem('username'));
+        return !isUndefined(this.state.username);
     }
 
     isPasswordFilled() {
-        return !isUndefined(this.state.password) || !isNull(sessionStorage.getItem('password'));
+        return !isUndefined(this.state.password);
     }
 
     isDisabled() {
@@ -84,9 +92,6 @@ class Login extends Component {
     }
 
     render() {
-        const username = sessionStorage.getItem('username');
-        const password = sessionStorage.getItem('password');
-
         return (
             <div className="login">
                 <h1 className="login-text">Login to Application</h1>
@@ -98,8 +103,7 @@ class Login extends Component {
                             inputtype="input"
                             name="username"
                             placeholder="Enter username"
-                            defaultValue={ username }
-                            onChange={ this.saveToLocalstorage('username') } 
+                            onChange={ this.saveToLocalstorage } 
                             error={ this.state.errors.username}
                         />
                         <Input
@@ -107,8 +111,7 @@ class Login extends Component {
                             inputtype="input"
                             name="password"
                             placeholder="Enter password"
-                            defaultValue={ password }
-                            onChange={ this.saveToLocalstorage('password') }
+                            onChange={ this.saveToLocalstorage }
                             error={ this.state.errors.password}
                         />
                         <button className="primary" disabled={ this.isDisabled() }>
@@ -121,4 +124,17 @@ class Login extends Component {
     }
 }
 
-export default Login;
+
+const mapStateToProps = state => {
+    return {
+        username: state.auth.username,
+        password: state.auth.password,
+        role: state.auth.role,
+        isUserLoggedIn: state.auth.isUserLoggedIn
+    }
+};
+
+const mapDispatchToProps = { login }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
